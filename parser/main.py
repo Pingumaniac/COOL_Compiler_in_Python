@@ -230,7 +230,6 @@ class CoolParser:
         'exp : TILDE exp'
         p[0] = (p.lineno(1), 'negate', p[2])
 
-    # Perhaps not needed
     def p_exp_parenexp(self, p):
         'exp : LPAREN exp RPAREN'
         p[0] = (p.lineno(1), 'paren_exp', p[2])
