@@ -1,0 +1,3756 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> classlist
+Rule 2     classlist -> class SEMI
+Rule 3     classlist -> class SEMI classlist
+Rule 4     class -> CLASS type LBRACE featurelist RBRACE
+Rule 5     class -> CLASS type INHERITS type LBRACE featurelist RBRACE
+Rule 6     type -> TYPE
+Rule 7     identifier -> IDENTIFIER
+Rule 8     formallist -> formal COMMA formallist
+Rule 9     formallist -> formal
+Rule 10    formal -> identifier COLON type
+Rule 11    featurelist -> <empty>
+Rule 12    featurelist -> feature SEMI featurelist
+Rule 13    feature -> attribute
+Rule 14    attribute -> identifier COLON type
+Rule 15    attribute -> identifier COLON type LARROW exp
+Rule 16    feature -> identifier LPAREN formallist RPAREN COLON type LBRACE exp RBRACE
+Rule 17    feature -> identifier LPAREN RPAREN COLON type LBRACE exp RBRACE
+Rule 18    explist_semi -> exp SEMI
+Rule 19    explist_semi -> exp SEMI explist_semi
+Rule 20    explist_comma -> exp
+Rule 21    explist_comma -> exp COMMA explist_comma
+Rule 22    exp -> identifier LARROW exp
+Rule 23    exp -> exp DOT identifier LPAREN explist_comma RPAREN
+Rule 24    exp -> exp DOT identifier LPAREN RPAREN
+Rule 25    exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN
+Rule 26    exp -> exp AT type DOT identifier LPAREN RPAREN
+Rule 27    exp -> identifier LPAREN explist_comma RPAREN
+Rule 28    exp -> identifier LPAREN RPAREN
+Rule 29    exp -> IF exp THEN exp ELSE exp FI
+Rule 30    exp -> WHILE exp LOOP exp POOL
+Rule 31    exp -> LBRACE explist_semi RBRACE
+Rule 32    exp -> NEW type
+Rule 33    exp -> ISVOID exp
+Rule 34    exp -> exp PLUS exp
+Rule 35    exp -> exp MINUS exp
+Rule 36    exp -> exp TIMES exp
+Rule 37    exp -> exp DIVIDE exp
+Rule 38    exp -> NOT exp
+Rule 39    exp -> TILDE exp
+Rule 40    exp -> LPAREN exp RPAREN
+Rule 41    exp -> identifier
+Rule 42    exp -> INTEGER
+Rule 43    exp -> STRING
+Rule 44    exp -> TRUE
+Rule 45    exp -> FALSE
+Rule 46    exp -> LET attribute attributelist IN exp
+Rule 47    attributelist -> <empty>
+Rule 48    attributelist -> COMMA attribute attributelist
+Rule 49    exp -> CASE exp OF elementlist ESAC
+Rule 50    element -> identifier COLON type RARROW exp
+Rule 51    elementlist -> element SEMI
+Rule 52    elementlist -> element SEMI elementlist
+Rule 53    exp -> exp LT exp
+Rule 54    exp -> exp LE exp
+Rule 55    exp -> exp EQUALS exp
+
+Terminals, with rules where they appear
+
+AT                   : 25 26
+CASE                 : 49
+CLASS                : 4 5
+COLON                : 10 14 15 16 17 50
+COMMA                : 8 21 48
+DIVIDE               : 37
+DOT                  : 23 24 25 26
+ELSE                 : 29
+EQUALS               : 55
+ESAC                 : 49
+FALSE                : 45
+FI                   : 29
+IDENTIFIER           : 7
+IF                   : 29
+IN                   : 46
+INHERITS             : 5
+INTEGER              : 42
+ISVOID               : 33
+LARROW               : 15 22
+LBRACE               : 4 5 16 17 31
+LE                   : 54
+LET                  : 46
+LOOP                 : 30
+LPAREN               : 16 17 23 24 25 26 27 28 40
+LT                   : 53
+MINUS                : 35
+NEW                  : 32
+NOT                  : 38
+OF                   : 49
+PLUS                 : 34
+POOL                 : 30
+RARROW               : 50
+RBRACE               : 4 5 16 17 31
+RPAREN               : 16 17 23 24 25 26 27 28 40
+SEMI                 : 2 3 12 18 19 51 52
+STRING               : 43
+THEN                 : 29
+TILDE                : 39
+TIMES                : 36
+TRUE                 : 44
+TYPE                 : 6
+WHILE                : 30
+error                : 
+
+Nonterminals, with rules where they appear
+
+attribute            : 13 46 48
+attributelist        : 46 48
+class                : 2 3
+classlist            : 1 3
+element              : 51 52
+elementlist          : 49 52
+exp                  : 15 16 17 18 19 20 21 22 23 24 25 26 29 29 29 30 30 33 34 34 35 35 36 36 37 37 38 39 40 46 49 50 53 53 54 54 55 55
+explist_comma        : 21 23 25 27
+explist_semi         : 19 31
+feature              : 12
+featurelist          : 4 5 12
+formal               : 8 9
+formallist           : 8 16
+identifier           : 10 14 15 16 17 22 23 24 25 26 27 28 41 50
+program              : 0
+type                 : 4 5 5 10 14 15 16 17 25 26 32 50
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . classlist
+    (2) classlist -> . class SEMI
+    (3) classlist -> . class SEMI classlist
+    (4) class -> . CLASS type LBRACE featurelist RBRACE
+    (5) class -> . CLASS type INHERITS type LBRACE featurelist RBRACE
+
+    CLASS           shift and go to state 4
+
+    program                        shift and go to state 1
+    classlist                      shift and go to state 2
+    class                          shift and go to state 3
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> classlist .
+
+    $end            reduce using rule 1 (program -> classlist .)
+
+
+state 3
+
+    (2) classlist -> class . SEMI
+    (3) classlist -> class . SEMI classlist
+
+    SEMI            shift and go to state 5
+
+
+state 4
+
+    (4) class -> CLASS . type LBRACE featurelist RBRACE
+    (5) class -> CLASS . type INHERITS type LBRACE featurelist RBRACE
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 6
+
+state 5
+
+    (2) classlist -> class SEMI .
+    (3) classlist -> class SEMI . classlist
+    (2) classlist -> . class SEMI
+    (3) classlist -> . class SEMI classlist
+    (4) class -> . CLASS type LBRACE featurelist RBRACE
+    (5) class -> . CLASS type INHERITS type LBRACE featurelist RBRACE
+
+    $end            reduce using rule 2 (classlist -> class SEMI .)
+    CLASS           shift and go to state 4
+
+    class                          shift and go to state 3
+    classlist                      shift and go to state 8
+
+state 6
+
+    (4) class -> CLASS type . LBRACE featurelist RBRACE
+    (5) class -> CLASS type . INHERITS type LBRACE featurelist RBRACE
+
+    LBRACE          shift and go to state 9
+    INHERITS        shift and go to state 10
+
+
+state 7
+
+    (6) type -> TYPE .
+
+    LBRACE          reduce using rule 6 (type -> TYPE .)
+    INHERITS        reduce using rule 6 (type -> TYPE .)
+    LARROW          reduce using rule 6 (type -> TYPE .)
+    SEMI            reduce using rule 6 (type -> TYPE .)
+    COMMA           reduce using rule 6 (type -> TYPE .)
+    IN              reduce using rule 6 (type -> TYPE .)
+    RPAREN          reduce using rule 6 (type -> TYPE .)
+    DOT             reduce using rule 6 (type -> TYPE .)
+    AT              reduce using rule 6 (type -> TYPE .)
+    PLUS            reduce using rule 6 (type -> TYPE .)
+    MINUS           reduce using rule 6 (type -> TYPE .)
+    TIMES           reduce using rule 6 (type -> TYPE .)
+    DIVIDE          reduce using rule 6 (type -> TYPE .)
+    LT              reduce using rule 6 (type -> TYPE .)
+    LE              reduce using rule 6 (type -> TYPE .)
+    EQUALS          reduce using rule 6 (type -> TYPE .)
+    THEN            reduce using rule 6 (type -> TYPE .)
+    LOOP            reduce using rule 6 (type -> TYPE .)
+    OF              reduce using rule 6 (type -> TYPE .)
+    RBRACE          reduce using rule 6 (type -> TYPE .)
+    ELSE            reduce using rule 6 (type -> TYPE .)
+    POOL            reduce using rule 6 (type -> TYPE .)
+    FI              reduce using rule 6 (type -> TYPE .)
+    RARROW          reduce using rule 6 (type -> TYPE .)
+
+
+state 8
+
+    (3) classlist -> class SEMI classlist .
+
+    $end            reduce using rule 3 (classlist -> class SEMI classlist .)
+
+
+state 9
+
+    (4) class -> CLASS type LBRACE . featurelist RBRACE
+    (11) featurelist -> .
+    (12) featurelist -> . feature SEMI featurelist
+    (13) feature -> . attribute
+    (16) feature -> . identifier LPAREN formallist RPAREN COLON type LBRACE exp RBRACE
+    (17) feature -> . identifier LPAREN RPAREN COLON type LBRACE exp RBRACE
+    (14) attribute -> . identifier COLON type
+    (15) attribute -> . identifier COLON type LARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    RBRACE          reduce using rule 11 (featurelist -> .)
+    IDENTIFIER      shift and go to state 15
+
+    featurelist                    shift and go to state 11
+    feature                        shift and go to state 12
+    attribute                      shift and go to state 13
+    identifier                     shift and go to state 14
+
+state 10
+
+    (5) class -> CLASS type INHERITS . type LBRACE featurelist RBRACE
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 16
+
+state 11
+
+    (4) class -> CLASS type LBRACE featurelist . RBRACE
+
+    RBRACE          shift and go to state 17
+
+
+state 12
+
+    (12) featurelist -> feature . SEMI featurelist
+
+    SEMI            shift and go to state 18
+
+
+state 13
+
+    (13) feature -> attribute .
+
+    SEMI            reduce using rule 13 (feature -> attribute .)
+
+
+state 14
+
+    (16) feature -> identifier . LPAREN formallist RPAREN COLON type LBRACE exp RBRACE
+    (17) feature -> identifier . LPAREN RPAREN COLON type LBRACE exp RBRACE
+    (14) attribute -> identifier . COLON type
+    (15) attribute -> identifier . COLON type LARROW exp
+
+    LPAREN          shift and go to state 19
+    COLON           shift and go to state 20
+
+
+state 15
+
+    (7) identifier -> IDENTIFIER .
+
+    LPAREN          reduce using rule 7 (identifier -> IDENTIFIER .)
+    COLON           reduce using rule 7 (identifier -> IDENTIFIER .)
+    LARROW          reduce using rule 7 (identifier -> IDENTIFIER .)
+    DOT             reduce using rule 7 (identifier -> IDENTIFIER .)
+    AT              reduce using rule 7 (identifier -> IDENTIFIER .)
+    PLUS            reduce using rule 7 (identifier -> IDENTIFIER .)
+    MINUS           reduce using rule 7 (identifier -> IDENTIFIER .)
+    TIMES           reduce using rule 7 (identifier -> IDENTIFIER .)
+    DIVIDE          reduce using rule 7 (identifier -> IDENTIFIER .)
+    LT              reduce using rule 7 (identifier -> IDENTIFIER .)
+    LE              reduce using rule 7 (identifier -> IDENTIFIER .)
+    EQUALS          reduce using rule 7 (identifier -> IDENTIFIER .)
+    SEMI            reduce using rule 7 (identifier -> IDENTIFIER .)
+    COMMA           reduce using rule 7 (identifier -> IDENTIFIER .)
+    IN              reduce using rule 7 (identifier -> IDENTIFIER .)
+    RPAREN          reduce using rule 7 (identifier -> IDENTIFIER .)
+    THEN            reduce using rule 7 (identifier -> IDENTIFIER .)
+    LOOP            reduce using rule 7 (identifier -> IDENTIFIER .)
+    OF              reduce using rule 7 (identifier -> IDENTIFIER .)
+    RBRACE          reduce using rule 7 (identifier -> IDENTIFIER .)
+    ELSE            reduce using rule 7 (identifier -> IDENTIFIER .)
+    POOL            reduce using rule 7 (identifier -> IDENTIFIER .)
+    FI              reduce using rule 7 (identifier -> IDENTIFIER .)
+
+
+state 16
+
+    (5) class -> CLASS type INHERITS type . LBRACE featurelist RBRACE
+
+    LBRACE          shift and go to state 21
+
+
+state 17
+
+    (4) class -> CLASS type LBRACE featurelist RBRACE .
+
+    SEMI            reduce using rule 4 (class -> CLASS type LBRACE featurelist RBRACE .)
+
+
+state 18
+
+    (12) featurelist -> feature SEMI . featurelist
+    (11) featurelist -> .
+    (12) featurelist -> . feature SEMI featurelist
+    (13) feature -> . attribute
+    (16) feature -> . identifier LPAREN formallist RPAREN COLON type LBRACE exp RBRACE
+    (17) feature -> . identifier LPAREN RPAREN COLON type LBRACE exp RBRACE
+    (14) attribute -> . identifier COLON type
+    (15) attribute -> . identifier COLON type LARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    RBRACE          reduce using rule 11 (featurelist -> .)
+    IDENTIFIER      shift and go to state 15
+
+    feature                        shift and go to state 12
+    featurelist                    shift and go to state 22
+    attribute                      shift and go to state 13
+    identifier                     shift and go to state 14
+
+state 19
+
+    (16) feature -> identifier LPAREN . formallist RPAREN COLON type LBRACE exp RBRACE
+    (17) feature -> identifier LPAREN . RPAREN COLON type LBRACE exp RBRACE
+    (8) formallist -> . formal COMMA formallist
+    (9) formallist -> . formal
+    (10) formal -> . identifier COLON type
+    (7) identifier -> . IDENTIFIER
+
+    RPAREN          shift and go to state 25
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 23
+    formallist                     shift and go to state 24
+    formal                         shift and go to state 26
+
+state 20
+
+    (14) attribute -> identifier COLON . type
+    (15) attribute -> identifier COLON . type LARROW exp
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 27
+
+state 21
+
+    (5) class -> CLASS type INHERITS type LBRACE . featurelist RBRACE
+    (11) featurelist -> .
+    (12) featurelist -> . feature SEMI featurelist
+    (13) feature -> . attribute
+    (16) feature -> . identifier LPAREN formallist RPAREN COLON type LBRACE exp RBRACE
+    (17) feature -> . identifier LPAREN RPAREN COLON type LBRACE exp RBRACE
+    (14) attribute -> . identifier COLON type
+    (15) attribute -> . identifier COLON type LARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    RBRACE          reduce using rule 11 (featurelist -> .)
+    IDENTIFIER      shift and go to state 15
+
+    featurelist                    shift and go to state 28
+    feature                        shift and go to state 12
+    attribute                      shift and go to state 13
+    identifier                     shift and go to state 14
+
+state 22
+
+    (12) featurelist -> feature SEMI featurelist .
+
+    RBRACE          reduce using rule 12 (featurelist -> feature SEMI featurelist .)
+
+
+state 23
+
+    (10) formal -> identifier . COLON type
+
+    COLON           shift and go to state 29
+
+
+state 24
+
+    (16) feature -> identifier LPAREN formallist . RPAREN COLON type LBRACE exp RBRACE
+
+    RPAREN          shift and go to state 30
+
+
+state 25
+
+    (17) feature -> identifier LPAREN RPAREN . COLON type LBRACE exp RBRACE
+
+    COLON           shift and go to state 31
+
+
+state 26
+
+    (8) formallist -> formal . COMMA formallist
+    (9) formallist -> formal .
+
+    COMMA           shift and go to state 32
+    RPAREN          reduce using rule 9 (formallist -> formal .)
+
+
+state 27
+
+    (14) attribute -> identifier COLON type .
+    (15) attribute -> identifier COLON type . LARROW exp
+
+    SEMI            reduce using rule 14 (attribute -> identifier COLON type .)
+    COMMA           reduce using rule 14 (attribute -> identifier COLON type .)
+    IN              reduce using rule 14 (attribute -> identifier COLON type .)
+    LARROW          shift and go to state 33
+
+
+state 28
+
+    (5) class -> CLASS type INHERITS type LBRACE featurelist . RBRACE
+
+    RBRACE          shift and go to state 34
+
+
+state 29
+
+    (10) formal -> identifier COLON . type
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 35
+
+state 30
+
+    (16) feature -> identifier LPAREN formallist RPAREN . COLON type LBRACE exp RBRACE
+
+    COLON           shift and go to state 36
+
+
+state 31
+
+    (17) feature -> identifier LPAREN RPAREN COLON . type LBRACE exp RBRACE
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 37
+
+state 32
+
+    (8) formallist -> formal COMMA . formallist
+    (8) formallist -> . formal COMMA formallist
+    (9) formallist -> . formal
+    (10) formal -> . identifier COLON type
+    (7) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    formal                         shift and go to state 26
+    formallist                     shift and go to state 38
+    identifier                     shift and go to state 23
+
+state 33
+
+    (15) attribute -> identifier COLON type LARROW . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 39
+    exp                            shift and go to state 40
+
+state 34
+
+    (5) class -> CLASS type INHERITS type LBRACE featurelist RBRACE .
+
+    SEMI            reduce using rule 5 (class -> CLASS type INHERITS type LBRACE featurelist RBRACE .)
+
+
+state 35
+
+    (10) formal -> identifier COLON type .
+
+    COMMA           reduce using rule 10 (formal -> identifier COLON type .)
+    RPAREN          reduce using rule 10 (formal -> identifier COLON type .)
+
+
+state 36
+
+    (16) feature -> identifier LPAREN formallist RPAREN COLON . type LBRACE exp RBRACE
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 55
+
+state 37
+
+    (17) feature -> identifier LPAREN RPAREN COLON type . LBRACE exp RBRACE
+
+    LBRACE          shift and go to state 56
+
+
+state 38
+
+    (8) formallist -> formal COMMA formallist .
+
+    RPAREN          reduce using rule 8 (formallist -> formal COMMA formallist .)
+
+
+state 39
+
+    (22) exp -> identifier . LARROW exp
+    (27) exp -> identifier . LPAREN explist_comma RPAREN
+    (28) exp -> identifier . LPAREN RPAREN
+    (41) exp -> identifier .
+
+    LARROW          shift and go to state 57
+    LPAREN          shift and go to state 58
+    DOT             reduce using rule 41 (exp -> identifier .)
+    AT              reduce using rule 41 (exp -> identifier .)
+    PLUS            reduce using rule 41 (exp -> identifier .)
+    MINUS           reduce using rule 41 (exp -> identifier .)
+    TIMES           reduce using rule 41 (exp -> identifier .)
+    DIVIDE          reduce using rule 41 (exp -> identifier .)
+    LT              reduce using rule 41 (exp -> identifier .)
+    LE              reduce using rule 41 (exp -> identifier .)
+    EQUALS          reduce using rule 41 (exp -> identifier .)
+    SEMI            reduce using rule 41 (exp -> identifier .)
+    COMMA           reduce using rule 41 (exp -> identifier .)
+    IN              reduce using rule 41 (exp -> identifier .)
+    RPAREN          reduce using rule 41 (exp -> identifier .)
+    THEN            reduce using rule 41 (exp -> identifier .)
+    LOOP            reduce using rule 41 (exp -> identifier .)
+    OF              reduce using rule 41 (exp -> identifier .)
+    RBRACE          reduce using rule 41 (exp -> identifier .)
+    ELSE            reduce using rule 41 (exp -> identifier .)
+    POOL            reduce using rule 41 (exp -> identifier .)
+    FI              reduce using rule 41 (exp -> identifier .)
+
+
+state 40
+
+    (15) attribute -> identifier COLON type LARROW exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    SEMI            reduce using rule 15 (attribute -> identifier COLON type LARROW exp .)
+    COMMA           reduce using rule 15 (attribute -> identifier COLON type LARROW exp .)
+    IN              reduce using rule 15 (attribute -> identifier COLON type LARROW exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 41
+
+    (40) exp -> LPAREN . exp RPAREN
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 68
+    identifier                     shift and go to state 39
+
+state 42
+
+    (29) exp -> IF . exp THEN exp ELSE exp FI
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 69
+    identifier                     shift and go to state 39
+
+state 43
+
+    (30) exp -> WHILE . exp LOOP exp POOL
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 70
+    identifier                     shift and go to state 39
+
+state 44
+
+    (31) exp -> LBRACE . explist_semi RBRACE
+    (18) explist_semi -> . exp SEMI
+    (19) explist_semi -> . exp SEMI explist_semi
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    explist_semi                   shift and go to state 71
+    exp                            shift and go to state 72
+    identifier                     shift and go to state 39
+
+state 45
+
+    (32) exp -> NEW . type
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 73
+
+state 46
+
+    (33) exp -> ISVOID . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 74
+    identifier                     shift and go to state 39
+
+state 47
+
+    (38) exp -> NOT . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 75
+    identifier                     shift and go to state 39
+
+state 48
+
+    (39) exp -> TILDE . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 76
+    identifier                     shift and go to state 39
+
+state 49
+
+    (42) exp -> INTEGER .
+
+    DOT             reduce using rule 42 (exp -> INTEGER .)
+    AT              reduce using rule 42 (exp -> INTEGER .)
+    PLUS            reduce using rule 42 (exp -> INTEGER .)
+    MINUS           reduce using rule 42 (exp -> INTEGER .)
+    TIMES           reduce using rule 42 (exp -> INTEGER .)
+    DIVIDE          reduce using rule 42 (exp -> INTEGER .)
+    LT              reduce using rule 42 (exp -> INTEGER .)
+    LE              reduce using rule 42 (exp -> INTEGER .)
+    EQUALS          reduce using rule 42 (exp -> INTEGER .)
+    SEMI            reduce using rule 42 (exp -> INTEGER .)
+    COMMA           reduce using rule 42 (exp -> INTEGER .)
+    IN              reduce using rule 42 (exp -> INTEGER .)
+    RPAREN          reduce using rule 42 (exp -> INTEGER .)
+    THEN            reduce using rule 42 (exp -> INTEGER .)
+    LOOP            reduce using rule 42 (exp -> INTEGER .)
+    OF              reduce using rule 42 (exp -> INTEGER .)
+    RBRACE          reduce using rule 42 (exp -> INTEGER .)
+    ELSE            reduce using rule 42 (exp -> INTEGER .)
+    POOL            reduce using rule 42 (exp -> INTEGER .)
+    FI              reduce using rule 42 (exp -> INTEGER .)
+
+
+state 50
+
+    (43) exp -> STRING .
+
+    DOT             reduce using rule 43 (exp -> STRING .)
+    AT              reduce using rule 43 (exp -> STRING .)
+    PLUS            reduce using rule 43 (exp -> STRING .)
+    MINUS           reduce using rule 43 (exp -> STRING .)
+    TIMES           reduce using rule 43 (exp -> STRING .)
+    DIVIDE          reduce using rule 43 (exp -> STRING .)
+    LT              reduce using rule 43 (exp -> STRING .)
+    LE              reduce using rule 43 (exp -> STRING .)
+    EQUALS          reduce using rule 43 (exp -> STRING .)
+    SEMI            reduce using rule 43 (exp -> STRING .)
+    COMMA           reduce using rule 43 (exp -> STRING .)
+    IN              reduce using rule 43 (exp -> STRING .)
+    RPAREN          reduce using rule 43 (exp -> STRING .)
+    THEN            reduce using rule 43 (exp -> STRING .)
+    LOOP            reduce using rule 43 (exp -> STRING .)
+    OF              reduce using rule 43 (exp -> STRING .)
+    RBRACE          reduce using rule 43 (exp -> STRING .)
+    ELSE            reduce using rule 43 (exp -> STRING .)
+    POOL            reduce using rule 43 (exp -> STRING .)
+    FI              reduce using rule 43 (exp -> STRING .)
+
+
+state 51
+
+    (44) exp -> TRUE .
+
+    DOT             reduce using rule 44 (exp -> TRUE .)
+    AT              reduce using rule 44 (exp -> TRUE .)
+    PLUS            reduce using rule 44 (exp -> TRUE .)
+    MINUS           reduce using rule 44 (exp -> TRUE .)
+    TIMES           reduce using rule 44 (exp -> TRUE .)
+    DIVIDE          reduce using rule 44 (exp -> TRUE .)
+    LT              reduce using rule 44 (exp -> TRUE .)
+    LE              reduce using rule 44 (exp -> TRUE .)
+    EQUALS          reduce using rule 44 (exp -> TRUE .)
+    SEMI            reduce using rule 44 (exp -> TRUE .)
+    COMMA           reduce using rule 44 (exp -> TRUE .)
+    IN              reduce using rule 44 (exp -> TRUE .)
+    RPAREN          reduce using rule 44 (exp -> TRUE .)
+    THEN            reduce using rule 44 (exp -> TRUE .)
+    LOOP            reduce using rule 44 (exp -> TRUE .)
+    OF              reduce using rule 44 (exp -> TRUE .)
+    RBRACE          reduce using rule 44 (exp -> TRUE .)
+    ELSE            reduce using rule 44 (exp -> TRUE .)
+    POOL            reduce using rule 44 (exp -> TRUE .)
+    FI              reduce using rule 44 (exp -> TRUE .)
+
+
+state 52
+
+    (45) exp -> FALSE .
+
+    DOT             reduce using rule 45 (exp -> FALSE .)
+    AT              reduce using rule 45 (exp -> FALSE .)
+    PLUS            reduce using rule 45 (exp -> FALSE .)
+    MINUS           reduce using rule 45 (exp -> FALSE .)
+    TIMES           reduce using rule 45 (exp -> FALSE .)
+    DIVIDE          reduce using rule 45 (exp -> FALSE .)
+    LT              reduce using rule 45 (exp -> FALSE .)
+    LE              reduce using rule 45 (exp -> FALSE .)
+    EQUALS          reduce using rule 45 (exp -> FALSE .)
+    SEMI            reduce using rule 45 (exp -> FALSE .)
+    COMMA           reduce using rule 45 (exp -> FALSE .)
+    IN              reduce using rule 45 (exp -> FALSE .)
+    RPAREN          reduce using rule 45 (exp -> FALSE .)
+    THEN            reduce using rule 45 (exp -> FALSE .)
+    LOOP            reduce using rule 45 (exp -> FALSE .)
+    OF              reduce using rule 45 (exp -> FALSE .)
+    RBRACE          reduce using rule 45 (exp -> FALSE .)
+    ELSE            reduce using rule 45 (exp -> FALSE .)
+    POOL            reduce using rule 45 (exp -> FALSE .)
+    FI              reduce using rule 45 (exp -> FALSE .)
+
+
+state 53
+
+    (46) exp -> LET . attribute attributelist IN exp
+    (14) attribute -> . identifier COLON type
+    (15) attribute -> . identifier COLON type LARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    attribute                      shift and go to state 77
+    identifier                     shift and go to state 78
+
+state 54
+
+    (49) exp -> CASE . exp OF elementlist ESAC
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 79
+    identifier                     shift and go to state 39
+
+state 55
+
+    (16) feature -> identifier LPAREN formallist RPAREN COLON type . LBRACE exp RBRACE
+
+    LBRACE          shift and go to state 80
+
+
+state 56
+
+    (17) feature -> identifier LPAREN RPAREN COLON type LBRACE . exp RBRACE
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 39
+    exp                            shift and go to state 81
+
+state 57
+
+    (22) exp -> identifier LARROW . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 39
+    exp                            shift and go to state 82
+
+state 58
+
+    (27) exp -> identifier LPAREN . explist_comma RPAREN
+    (28) exp -> identifier LPAREN . RPAREN
+    (20) explist_comma -> . exp
+    (21) explist_comma -> . exp COMMA explist_comma
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    RPAREN          shift and go to state 84
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 39
+    explist_comma                  shift and go to state 83
+    exp                            shift and go to state 85
+
+state 59
+
+    (23) exp -> exp DOT . identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp DOT . identifier LPAREN RPAREN
+    (7) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 86
+
+state 60
+
+    (25) exp -> exp AT . type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp AT . type DOT identifier LPAREN RPAREN
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 87
+
+state 61
+
+    (34) exp -> exp PLUS . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 88
+    identifier                     shift and go to state 39
+
+state 62
+
+    (35) exp -> exp MINUS . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 89
+    identifier                     shift and go to state 39
+
+state 63
+
+    (36) exp -> exp TIMES . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 90
+    identifier                     shift and go to state 39
+
+state 64
+
+    (37) exp -> exp DIVIDE . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 91
+    identifier                     shift and go to state 39
+
+state 65
+
+    (53) exp -> exp LT . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 92
+    identifier                     shift and go to state 39
+
+state 66
+
+    (54) exp -> exp LE . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 93
+    identifier                     shift and go to state 39
+
+state 67
+
+    (55) exp -> exp EQUALS . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 94
+    identifier                     shift and go to state 39
+
+state 68
+
+    (40) exp -> LPAREN exp . RPAREN
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    RPAREN          shift and go to state 95
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 69
+
+    (29) exp -> IF exp . THEN exp ELSE exp FI
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    THEN            shift and go to state 96
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 70
+
+    (30) exp -> WHILE exp . LOOP exp POOL
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    LOOP            shift and go to state 97
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 71
+
+    (31) exp -> LBRACE explist_semi . RBRACE
+
+    RBRACE          shift and go to state 98
+
+
+state 72
+
+    (18) explist_semi -> exp . SEMI
+    (19) explist_semi -> exp . SEMI explist_semi
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    SEMI            shift and go to state 99
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 73
+
+    (32) exp -> NEW type .
+
+    DOT             reduce using rule 32 (exp -> NEW type .)
+    AT              reduce using rule 32 (exp -> NEW type .)
+    PLUS            reduce using rule 32 (exp -> NEW type .)
+    MINUS           reduce using rule 32 (exp -> NEW type .)
+    TIMES           reduce using rule 32 (exp -> NEW type .)
+    DIVIDE          reduce using rule 32 (exp -> NEW type .)
+    LT              reduce using rule 32 (exp -> NEW type .)
+    LE              reduce using rule 32 (exp -> NEW type .)
+    EQUALS          reduce using rule 32 (exp -> NEW type .)
+    SEMI            reduce using rule 32 (exp -> NEW type .)
+    COMMA           reduce using rule 32 (exp -> NEW type .)
+    IN              reduce using rule 32 (exp -> NEW type .)
+    RPAREN          reduce using rule 32 (exp -> NEW type .)
+    THEN            reduce using rule 32 (exp -> NEW type .)
+    LOOP            reduce using rule 32 (exp -> NEW type .)
+    OF              reduce using rule 32 (exp -> NEW type .)
+    RBRACE          reduce using rule 32 (exp -> NEW type .)
+    ELSE            reduce using rule 32 (exp -> NEW type .)
+    POOL            reduce using rule 32 (exp -> NEW type .)
+    FI              reduce using rule 32 (exp -> NEW type .)
+
+
+state 74
+
+    (33) exp -> ISVOID exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    DOT             reduce using rule 33 (exp -> ISVOID exp .)
+    AT              reduce using rule 33 (exp -> ISVOID exp .)
+    PLUS            reduce using rule 33 (exp -> ISVOID exp .)
+    MINUS           reduce using rule 33 (exp -> ISVOID exp .)
+    TIMES           reduce using rule 33 (exp -> ISVOID exp .)
+    DIVIDE          reduce using rule 33 (exp -> ISVOID exp .)
+    LT              reduce using rule 33 (exp -> ISVOID exp .)
+    LE              reduce using rule 33 (exp -> ISVOID exp .)
+    EQUALS          reduce using rule 33 (exp -> ISVOID exp .)
+    SEMI            reduce using rule 33 (exp -> ISVOID exp .)
+    COMMA           reduce using rule 33 (exp -> ISVOID exp .)
+    IN              reduce using rule 33 (exp -> ISVOID exp .)
+    RPAREN          reduce using rule 33 (exp -> ISVOID exp .)
+    THEN            reduce using rule 33 (exp -> ISVOID exp .)
+    LOOP            reduce using rule 33 (exp -> ISVOID exp .)
+    OF              reduce using rule 33 (exp -> ISVOID exp .)
+    RBRACE          reduce using rule 33 (exp -> ISVOID exp .)
+    ELSE            reduce using rule 33 (exp -> ISVOID exp .)
+    POOL            reduce using rule 33 (exp -> ISVOID exp .)
+    FI              reduce using rule 33 (exp -> ISVOID exp .)
+
+  ! DOT             [ shift and go to state 59 ]
+  ! AT              [ shift and go to state 60 ]
+  ! PLUS            [ shift and go to state 61 ]
+  ! MINUS           [ shift and go to state 62 ]
+  ! TIMES           [ shift and go to state 63 ]
+  ! DIVIDE          [ shift and go to state 64 ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 75
+
+    (38) exp -> NOT exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    SEMI            reduce using rule 38 (exp -> NOT exp .)
+    COMMA           reduce using rule 38 (exp -> NOT exp .)
+    IN              reduce using rule 38 (exp -> NOT exp .)
+    RPAREN          reduce using rule 38 (exp -> NOT exp .)
+    THEN            reduce using rule 38 (exp -> NOT exp .)
+    LOOP            reduce using rule 38 (exp -> NOT exp .)
+    OF              reduce using rule 38 (exp -> NOT exp .)
+    RBRACE          reduce using rule 38 (exp -> NOT exp .)
+    ELSE            reduce using rule 38 (exp -> NOT exp .)
+    POOL            reduce using rule 38 (exp -> NOT exp .)
+    FI              reduce using rule 38 (exp -> NOT exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+  ! DOT             [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! AT              [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! PLUS            [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! MINUS           [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! TIMES           [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! DIVIDE          [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! LT              [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! LE              [ reduce using rule 38 (exp -> NOT exp .) ]
+  ! EQUALS          [ reduce using rule 38 (exp -> NOT exp .) ]
+
+
+state 76
+
+    (39) exp -> TILDE exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    SEMI            reduce using rule 39 (exp -> TILDE exp .)
+    COMMA           reduce using rule 39 (exp -> TILDE exp .)
+    IN              reduce using rule 39 (exp -> TILDE exp .)
+    RPAREN          reduce using rule 39 (exp -> TILDE exp .)
+    THEN            reduce using rule 39 (exp -> TILDE exp .)
+    LOOP            reduce using rule 39 (exp -> TILDE exp .)
+    OF              reduce using rule 39 (exp -> TILDE exp .)
+    RBRACE          reduce using rule 39 (exp -> TILDE exp .)
+    ELSE            reduce using rule 39 (exp -> TILDE exp .)
+    POOL            reduce using rule 39 (exp -> TILDE exp .)
+    FI              reduce using rule 39 (exp -> TILDE exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+  ! DOT             [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! AT              [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! PLUS            [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! MINUS           [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! TIMES           [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! DIVIDE          [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! LT              [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! LE              [ reduce using rule 39 (exp -> TILDE exp .) ]
+  ! EQUALS          [ reduce using rule 39 (exp -> TILDE exp .) ]
+
+
+state 77
+
+    (46) exp -> LET attribute . attributelist IN exp
+    (47) attributelist -> .
+    (48) attributelist -> . COMMA attribute attributelist
+
+    IN              reduce using rule 47 (attributelist -> .)
+    COMMA           shift and go to state 101
+
+    attributelist                  shift and go to state 100
+
+state 78
+
+    (14) attribute -> identifier . COLON type
+    (15) attribute -> identifier . COLON type LARROW exp
+
+    COLON           shift and go to state 20
+
+
+state 79
+
+    (49) exp -> CASE exp . OF elementlist ESAC
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    OF              shift and go to state 102
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 80
+
+    (16) feature -> identifier LPAREN formallist RPAREN COLON type LBRACE . exp RBRACE
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 39
+    exp                            shift and go to state 103
+
+state 81
+
+    (17) feature -> identifier LPAREN RPAREN COLON type LBRACE exp . RBRACE
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    RBRACE          shift and go to state 104
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 82
+
+    (22) exp -> identifier LARROW exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    SEMI            reduce using rule 22 (exp -> identifier LARROW exp .)
+    COMMA           reduce using rule 22 (exp -> identifier LARROW exp .)
+    IN              reduce using rule 22 (exp -> identifier LARROW exp .)
+    RPAREN          reduce using rule 22 (exp -> identifier LARROW exp .)
+    THEN            reduce using rule 22 (exp -> identifier LARROW exp .)
+    LOOP            reduce using rule 22 (exp -> identifier LARROW exp .)
+    OF              reduce using rule 22 (exp -> identifier LARROW exp .)
+    RBRACE          reduce using rule 22 (exp -> identifier LARROW exp .)
+    ELSE            reduce using rule 22 (exp -> identifier LARROW exp .)
+    POOL            reduce using rule 22 (exp -> identifier LARROW exp .)
+    FI              reduce using rule 22 (exp -> identifier LARROW exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+  ! DOT             [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! AT              [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! PLUS            [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! MINUS           [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! TIMES           [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! DIVIDE          [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! LT              [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! LE              [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+  ! EQUALS          [ reduce using rule 22 (exp -> identifier LARROW exp .) ]
+
+
+state 83
+
+    (27) exp -> identifier LPAREN explist_comma . RPAREN
+
+    RPAREN          shift and go to state 105
+
+
+state 84
+
+    (28) exp -> identifier LPAREN RPAREN .
+
+    DOT             reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    AT              reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    PLUS            reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    MINUS           reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    TIMES           reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    DIVIDE          reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    LT              reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    LE              reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    EQUALS          reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    SEMI            reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    COMMA           reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    IN              reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    RPAREN          reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    THEN            reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    LOOP            reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    OF              reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    RBRACE          reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    ELSE            reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    POOL            reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+    FI              reduce using rule 28 (exp -> identifier LPAREN RPAREN .)
+
+
+state 85
+
+    (20) explist_comma -> exp .
+    (21) explist_comma -> exp . COMMA explist_comma
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    RPAREN          reduce using rule 20 (explist_comma -> exp .)
+    COMMA           shift and go to state 106
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 86
+
+    (23) exp -> exp DOT identifier . LPAREN explist_comma RPAREN
+    (24) exp -> exp DOT identifier . LPAREN RPAREN
+
+    LPAREN          shift and go to state 107
+
+
+state 87
+
+    (25) exp -> exp AT type . DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp AT type . DOT identifier LPAREN RPAREN
+
+    DOT             shift and go to state 108
+
+
+state 88
+
+    (34) exp -> exp PLUS exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    PLUS            reduce using rule 34 (exp -> exp PLUS exp .)
+    MINUS           reduce using rule 34 (exp -> exp PLUS exp .)
+    LT              reduce using rule 34 (exp -> exp PLUS exp .)
+    LE              reduce using rule 34 (exp -> exp PLUS exp .)
+    EQUALS          reduce using rule 34 (exp -> exp PLUS exp .)
+    SEMI            reduce using rule 34 (exp -> exp PLUS exp .)
+    COMMA           reduce using rule 34 (exp -> exp PLUS exp .)
+    IN              reduce using rule 34 (exp -> exp PLUS exp .)
+    RPAREN          reduce using rule 34 (exp -> exp PLUS exp .)
+    THEN            reduce using rule 34 (exp -> exp PLUS exp .)
+    LOOP            reduce using rule 34 (exp -> exp PLUS exp .)
+    OF              reduce using rule 34 (exp -> exp PLUS exp .)
+    RBRACE          reduce using rule 34 (exp -> exp PLUS exp .)
+    ELSE            reduce using rule 34 (exp -> exp PLUS exp .)
+    POOL            reduce using rule 34 (exp -> exp PLUS exp .)
+    FI              reduce using rule 34 (exp -> exp PLUS exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+
+  ! DOT             [ reduce using rule 34 (exp -> exp PLUS exp .) ]
+  ! AT              [ reduce using rule 34 (exp -> exp PLUS exp .) ]
+  ! TIMES           [ reduce using rule 34 (exp -> exp PLUS exp .) ]
+  ! DIVIDE          [ reduce using rule 34 (exp -> exp PLUS exp .) ]
+  ! PLUS            [ shift and go to state 61 ]
+  ! MINUS           [ shift and go to state 62 ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 89
+
+    (35) exp -> exp MINUS exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    PLUS            reduce using rule 35 (exp -> exp MINUS exp .)
+    MINUS           reduce using rule 35 (exp -> exp MINUS exp .)
+    LT              reduce using rule 35 (exp -> exp MINUS exp .)
+    LE              reduce using rule 35 (exp -> exp MINUS exp .)
+    EQUALS          reduce using rule 35 (exp -> exp MINUS exp .)
+    SEMI            reduce using rule 35 (exp -> exp MINUS exp .)
+    COMMA           reduce using rule 35 (exp -> exp MINUS exp .)
+    IN              reduce using rule 35 (exp -> exp MINUS exp .)
+    RPAREN          reduce using rule 35 (exp -> exp MINUS exp .)
+    THEN            reduce using rule 35 (exp -> exp MINUS exp .)
+    LOOP            reduce using rule 35 (exp -> exp MINUS exp .)
+    OF              reduce using rule 35 (exp -> exp MINUS exp .)
+    RBRACE          reduce using rule 35 (exp -> exp MINUS exp .)
+    ELSE            reduce using rule 35 (exp -> exp MINUS exp .)
+    POOL            reduce using rule 35 (exp -> exp MINUS exp .)
+    FI              reduce using rule 35 (exp -> exp MINUS exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+
+  ! DOT             [ reduce using rule 35 (exp -> exp MINUS exp .) ]
+  ! AT              [ reduce using rule 35 (exp -> exp MINUS exp .) ]
+  ! TIMES           [ reduce using rule 35 (exp -> exp MINUS exp .) ]
+  ! DIVIDE          [ reduce using rule 35 (exp -> exp MINUS exp .) ]
+  ! PLUS            [ shift and go to state 61 ]
+  ! MINUS           [ shift and go to state 62 ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 90
+
+    (36) exp -> exp TIMES exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    PLUS            reduce using rule 36 (exp -> exp TIMES exp .)
+    MINUS           reduce using rule 36 (exp -> exp TIMES exp .)
+    TIMES           reduce using rule 36 (exp -> exp TIMES exp .)
+    DIVIDE          reduce using rule 36 (exp -> exp TIMES exp .)
+    LT              reduce using rule 36 (exp -> exp TIMES exp .)
+    LE              reduce using rule 36 (exp -> exp TIMES exp .)
+    EQUALS          reduce using rule 36 (exp -> exp TIMES exp .)
+    SEMI            reduce using rule 36 (exp -> exp TIMES exp .)
+    COMMA           reduce using rule 36 (exp -> exp TIMES exp .)
+    IN              reduce using rule 36 (exp -> exp TIMES exp .)
+    RPAREN          reduce using rule 36 (exp -> exp TIMES exp .)
+    THEN            reduce using rule 36 (exp -> exp TIMES exp .)
+    LOOP            reduce using rule 36 (exp -> exp TIMES exp .)
+    OF              reduce using rule 36 (exp -> exp TIMES exp .)
+    RBRACE          reduce using rule 36 (exp -> exp TIMES exp .)
+    ELSE            reduce using rule 36 (exp -> exp TIMES exp .)
+    POOL            reduce using rule 36 (exp -> exp TIMES exp .)
+    FI              reduce using rule 36 (exp -> exp TIMES exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+
+  ! DOT             [ reduce using rule 36 (exp -> exp TIMES exp .) ]
+  ! AT              [ reduce using rule 36 (exp -> exp TIMES exp .) ]
+  ! PLUS            [ shift and go to state 61 ]
+  ! MINUS           [ shift and go to state 62 ]
+  ! TIMES           [ shift and go to state 63 ]
+  ! DIVIDE          [ shift and go to state 64 ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 91
+
+    (37) exp -> exp DIVIDE exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    PLUS            reduce using rule 37 (exp -> exp DIVIDE exp .)
+    MINUS           reduce using rule 37 (exp -> exp DIVIDE exp .)
+    TIMES           reduce using rule 37 (exp -> exp DIVIDE exp .)
+    DIVIDE          reduce using rule 37 (exp -> exp DIVIDE exp .)
+    LT              reduce using rule 37 (exp -> exp DIVIDE exp .)
+    LE              reduce using rule 37 (exp -> exp DIVIDE exp .)
+    EQUALS          reduce using rule 37 (exp -> exp DIVIDE exp .)
+    SEMI            reduce using rule 37 (exp -> exp DIVIDE exp .)
+    COMMA           reduce using rule 37 (exp -> exp DIVIDE exp .)
+    IN              reduce using rule 37 (exp -> exp DIVIDE exp .)
+    RPAREN          reduce using rule 37 (exp -> exp DIVIDE exp .)
+    THEN            reduce using rule 37 (exp -> exp DIVIDE exp .)
+    LOOP            reduce using rule 37 (exp -> exp DIVIDE exp .)
+    OF              reduce using rule 37 (exp -> exp DIVIDE exp .)
+    RBRACE          reduce using rule 37 (exp -> exp DIVIDE exp .)
+    ELSE            reduce using rule 37 (exp -> exp DIVIDE exp .)
+    POOL            reduce using rule 37 (exp -> exp DIVIDE exp .)
+    FI              reduce using rule 37 (exp -> exp DIVIDE exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+
+  ! DOT             [ reduce using rule 37 (exp -> exp DIVIDE exp .) ]
+  ! AT              [ reduce using rule 37 (exp -> exp DIVIDE exp .) ]
+  ! PLUS            [ shift and go to state 61 ]
+  ! MINUS           [ shift and go to state 62 ]
+  ! TIMES           [ shift and go to state 63 ]
+  ! DIVIDE          [ shift and go to state 64 ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 92
+
+    (53) exp -> exp LT exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    LT              reduce using rule 53 (exp -> exp LT exp .)
+    LE              reduce using rule 53 (exp -> exp LT exp .)
+    EQUALS          reduce using rule 53 (exp -> exp LT exp .)
+    SEMI            reduce using rule 53 (exp -> exp LT exp .)
+    COMMA           reduce using rule 53 (exp -> exp LT exp .)
+    IN              reduce using rule 53 (exp -> exp LT exp .)
+    RPAREN          reduce using rule 53 (exp -> exp LT exp .)
+    THEN            reduce using rule 53 (exp -> exp LT exp .)
+    LOOP            reduce using rule 53 (exp -> exp LT exp .)
+    OF              reduce using rule 53 (exp -> exp LT exp .)
+    RBRACE          reduce using rule 53 (exp -> exp LT exp .)
+    ELSE            reduce using rule 53 (exp -> exp LT exp .)
+    POOL            reduce using rule 53 (exp -> exp LT exp .)
+    FI              reduce using rule 53 (exp -> exp LT exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+
+  ! DOT             [ reduce using rule 53 (exp -> exp LT exp .) ]
+  ! AT              [ reduce using rule 53 (exp -> exp LT exp .) ]
+  ! PLUS            [ reduce using rule 53 (exp -> exp LT exp .) ]
+  ! MINUS           [ reduce using rule 53 (exp -> exp LT exp .) ]
+  ! TIMES           [ reduce using rule 53 (exp -> exp LT exp .) ]
+  ! DIVIDE          [ reduce using rule 53 (exp -> exp LT exp .) ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 93
+
+    (54) exp -> exp LE exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    LT              reduce using rule 54 (exp -> exp LE exp .)
+    LE              reduce using rule 54 (exp -> exp LE exp .)
+    EQUALS          reduce using rule 54 (exp -> exp LE exp .)
+    SEMI            reduce using rule 54 (exp -> exp LE exp .)
+    COMMA           reduce using rule 54 (exp -> exp LE exp .)
+    IN              reduce using rule 54 (exp -> exp LE exp .)
+    RPAREN          reduce using rule 54 (exp -> exp LE exp .)
+    THEN            reduce using rule 54 (exp -> exp LE exp .)
+    LOOP            reduce using rule 54 (exp -> exp LE exp .)
+    OF              reduce using rule 54 (exp -> exp LE exp .)
+    RBRACE          reduce using rule 54 (exp -> exp LE exp .)
+    ELSE            reduce using rule 54 (exp -> exp LE exp .)
+    POOL            reduce using rule 54 (exp -> exp LE exp .)
+    FI              reduce using rule 54 (exp -> exp LE exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+
+  ! DOT             [ reduce using rule 54 (exp -> exp LE exp .) ]
+  ! AT              [ reduce using rule 54 (exp -> exp LE exp .) ]
+  ! PLUS            [ reduce using rule 54 (exp -> exp LE exp .) ]
+  ! MINUS           [ reduce using rule 54 (exp -> exp LE exp .) ]
+  ! TIMES           [ reduce using rule 54 (exp -> exp LE exp .) ]
+  ! DIVIDE          [ reduce using rule 54 (exp -> exp LE exp .) ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 94
+
+    (55) exp -> exp EQUALS exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    LT              reduce using rule 55 (exp -> exp EQUALS exp .)
+    LE              reduce using rule 55 (exp -> exp EQUALS exp .)
+    EQUALS          reduce using rule 55 (exp -> exp EQUALS exp .)
+    SEMI            reduce using rule 55 (exp -> exp EQUALS exp .)
+    COMMA           reduce using rule 55 (exp -> exp EQUALS exp .)
+    IN              reduce using rule 55 (exp -> exp EQUALS exp .)
+    RPAREN          reduce using rule 55 (exp -> exp EQUALS exp .)
+    THEN            reduce using rule 55 (exp -> exp EQUALS exp .)
+    LOOP            reduce using rule 55 (exp -> exp EQUALS exp .)
+    OF              reduce using rule 55 (exp -> exp EQUALS exp .)
+    RBRACE          reduce using rule 55 (exp -> exp EQUALS exp .)
+    ELSE            reduce using rule 55 (exp -> exp EQUALS exp .)
+    POOL            reduce using rule 55 (exp -> exp EQUALS exp .)
+    FI              reduce using rule 55 (exp -> exp EQUALS exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+
+  ! DOT             [ reduce using rule 55 (exp -> exp EQUALS exp .) ]
+  ! AT              [ reduce using rule 55 (exp -> exp EQUALS exp .) ]
+  ! PLUS            [ reduce using rule 55 (exp -> exp EQUALS exp .) ]
+  ! MINUS           [ reduce using rule 55 (exp -> exp EQUALS exp .) ]
+  ! TIMES           [ reduce using rule 55 (exp -> exp EQUALS exp .) ]
+  ! DIVIDE          [ reduce using rule 55 (exp -> exp EQUALS exp .) ]
+  ! LT              [ shift and go to state 65 ]
+  ! LE              [ shift and go to state 66 ]
+  ! EQUALS          [ shift and go to state 67 ]
+
+
+state 95
+
+    (40) exp -> LPAREN exp RPAREN .
+
+    DOT             reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    AT              reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    PLUS            reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    MINUS           reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    TIMES           reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    DIVIDE          reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    LT              reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    LE              reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    EQUALS          reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    SEMI            reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    COMMA           reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    IN              reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    RPAREN          reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    THEN            reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    LOOP            reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    OF              reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    RBRACE          reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    ELSE            reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    POOL            reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+    FI              reduce using rule 40 (exp -> LPAREN exp RPAREN .)
+
+
+state 96
+
+    (29) exp -> IF exp THEN . exp ELSE exp FI
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 109
+    identifier                     shift and go to state 39
+
+state 97
+
+    (30) exp -> WHILE exp LOOP . exp POOL
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 110
+    identifier                     shift and go to state 39
+
+state 98
+
+    (31) exp -> LBRACE explist_semi RBRACE .
+
+    DOT             reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    AT              reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    PLUS            reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    MINUS           reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    TIMES           reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    DIVIDE          reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    LT              reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    LE              reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    EQUALS          reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    SEMI            reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    COMMA           reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    IN              reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    RPAREN          reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    THEN            reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    LOOP            reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    OF              reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    RBRACE          reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    ELSE            reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    POOL            reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+    FI              reduce using rule 31 (exp -> LBRACE explist_semi RBRACE .)
+
+
+state 99
+
+    (18) explist_semi -> exp SEMI .
+    (19) explist_semi -> exp SEMI . explist_semi
+    (18) explist_semi -> . exp SEMI
+    (19) explist_semi -> . exp SEMI explist_semi
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    RBRACE          reduce using rule 18 (explist_semi -> exp SEMI .)
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 72
+    explist_semi                   shift and go to state 111
+    identifier                     shift and go to state 39
+
+state 100
+
+    (46) exp -> LET attribute attributelist . IN exp
+
+    IN              shift and go to state 112
+
+
+state 101
+
+    (48) attributelist -> COMMA . attribute attributelist
+    (14) attribute -> . identifier COLON type
+    (15) attribute -> . identifier COLON type LARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    attribute                      shift and go to state 113
+    identifier                     shift and go to state 78
+
+state 102
+
+    (49) exp -> CASE exp OF . elementlist ESAC
+    (51) elementlist -> . element SEMI
+    (52) elementlist -> . element SEMI elementlist
+    (50) element -> . identifier COLON type RARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    elementlist                    shift and go to state 114
+    element                        shift and go to state 115
+    identifier                     shift and go to state 116
+
+state 103
+
+    (16) feature -> identifier LPAREN formallist RPAREN COLON type LBRACE exp . RBRACE
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    RBRACE          shift and go to state 117
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 104
+
+    (17) feature -> identifier LPAREN RPAREN COLON type LBRACE exp RBRACE .
+
+    SEMI            reduce using rule 17 (feature -> identifier LPAREN RPAREN COLON type LBRACE exp RBRACE .)
+
+
+state 105
+
+    (27) exp -> identifier LPAREN explist_comma RPAREN .
+
+    DOT             reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    AT              reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    PLUS            reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    MINUS           reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    TIMES           reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    DIVIDE          reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    LT              reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    LE              reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    EQUALS          reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    SEMI            reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    COMMA           reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    IN              reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    RPAREN          reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    THEN            reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    LOOP            reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    OF              reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    RBRACE          reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    ELSE            reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    POOL            reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+    FI              reduce using rule 27 (exp -> identifier LPAREN explist_comma RPAREN .)
+
+
+state 106
+
+    (21) explist_comma -> exp COMMA . explist_comma
+    (20) explist_comma -> . exp
+    (21) explist_comma -> . exp COMMA explist_comma
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 85
+    explist_comma                  shift and go to state 118
+    identifier                     shift and go to state 39
+
+state 107
+
+    (23) exp -> exp DOT identifier LPAREN . explist_comma RPAREN
+    (24) exp -> exp DOT identifier LPAREN . RPAREN
+    (20) explist_comma -> . exp
+    (21) explist_comma -> . exp COMMA explist_comma
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    RPAREN          shift and go to state 120
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 85
+    identifier                     shift and go to state 39
+    explist_comma                  shift and go to state 119
+
+state 108
+
+    (25) exp -> exp AT type DOT . identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp AT type DOT . identifier LPAREN RPAREN
+    (7) identifier -> . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 121
+
+state 109
+
+    (29) exp -> IF exp THEN exp . ELSE exp FI
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    ELSE            shift and go to state 122
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 110
+
+    (30) exp -> WHILE exp LOOP exp . POOL
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    POOL            shift and go to state 123
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 111
+
+    (19) explist_semi -> exp SEMI explist_semi .
+
+    RBRACE          reduce using rule 19 (explist_semi -> exp SEMI explist_semi .)
+
+
+state 112
+
+    (46) exp -> LET attribute attributelist IN . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 124
+    identifier                     shift and go to state 39
+
+state 113
+
+    (48) attributelist -> COMMA attribute . attributelist
+    (47) attributelist -> .
+    (48) attributelist -> . COMMA attribute attributelist
+
+    IN              reduce using rule 47 (attributelist -> .)
+    COMMA           shift and go to state 101
+
+    attributelist                  shift and go to state 125
+
+state 114
+
+    (49) exp -> CASE exp OF elementlist . ESAC
+
+    ESAC            shift and go to state 126
+
+
+state 115
+
+    (51) elementlist -> element . SEMI
+    (52) elementlist -> element . SEMI elementlist
+
+    SEMI            shift and go to state 127
+
+
+state 116
+
+    (50) element -> identifier . COLON type RARROW exp
+
+    COLON           shift and go to state 128
+
+
+state 117
+
+    (16) feature -> identifier LPAREN formallist RPAREN COLON type LBRACE exp RBRACE .
+
+    SEMI            reduce using rule 16 (feature -> identifier LPAREN formallist RPAREN COLON type LBRACE exp RBRACE .)
+
+
+state 118
+
+    (21) explist_comma -> exp COMMA explist_comma .
+
+    RPAREN          reduce using rule 21 (explist_comma -> exp COMMA explist_comma .)
+
+
+state 119
+
+    (23) exp -> exp DOT identifier LPAREN explist_comma . RPAREN
+
+    RPAREN          shift and go to state 129
+
+
+state 120
+
+    (24) exp -> exp DOT identifier LPAREN RPAREN .
+
+    DOT             reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    AT              reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    PLUS            reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    MINUS           reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    TIMES           reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    DIVIDE          reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    LT              reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    LE              reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    EQUALS          reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    SEMI            reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    COMMA           reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    IN              reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    RPAREN          reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    THEN            reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    LOOP            reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    OF              reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    RBRACE          reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    ELSE            reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    POOL            reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+    FI              reduce using rule 24 (exp -> exp DOT identifier LPAREN RPAREN .)
+
+
+state 121
+
+    (25) exp -> exp AT type DOT identifier . LPAREN explist_comma RPAREN
+    (26) exp -> exp AT type DOT identifier . LPAREN RPAREN
+
+    LPAREN          shift and go to state 130
+
+
+state 122
+
+    (29) exp -> IF exp THEN exp ELSE . exp FI
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 131
+    identifier                     shift and go to state 39
+
+state 123
+
+    (30) exp -> WHILE exp LOOP exp POOL .
+
+    DOT             reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    AT              reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    PLUS            reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    MINUS           reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    TIMES           reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    DIVIDE          reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    LT              reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    LE              reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    EQUALS          reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    SEMI            reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    COMMA           reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    IN              reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    RPAREN          reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    THEN            reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    LOOP            reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    OF              reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    RBRACE          reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    ELSE            reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    POOL            reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+    FI              reduce using rule 30 (exp -> WHILE exp LOOP exp POOL .)
+
+
+state 124
+
+    (46) exp -> LET attribute attributelist IN exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+  ! shift/reduce conflict for DOT resolved as shift
+  ! shift/reduce conflict for AT resolved as shift
+  ! shift/reduce conflict for PLUS resolved as shift
+  ! shift/reduce conflict for MINUS resolved as shift
+  ! shift/reduce conflict for TIMES resolved as shift
+  ! shift/reduce conflict for DIVIDE resolved as shift
+  ! shift/reduce conflict for LT resolved as shift
+  ! shift/reduce conflict for LE resolved as shift
+  ! shift/reduce conflict for EQUALS resolved as shift
+    SEMI            reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    COMMA           reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    IN              reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    RPAREN          reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    THEN            reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    LOOP            reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    OF              reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    RBRACE          reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    ELSE            reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    POOL            reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    FI              reduce using rule 46 (exp -> LET attribute attributelist IN exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+  ! DOT             [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! AT              [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! PLUS            [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! MINUS           [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! TIMES           [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! DIVIDE          [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! LT              [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! LE              [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+  ! EQUALS          [ reduce using rule 46 (exp -> LET attribute attributelist IN exp .) ]
+
+
+state 125
+
+    (48) attributelist -> COMMA attribute attributelist .
+
+    IN              reduce using rule 48 (attributelist -> COMMA attribute attributelist .)
+
+
+state 126
+
+    (49) exp -> CASE exp OF elementlist ESAC .
+
+    DOT             reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    AT              reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    PLUS            reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    MINUS           reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    TIMES           reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    DIVIDE          reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    LT              reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    LE              reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    EQUALS          reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    SEMI            reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    COMMA           reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    IN              reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    RPAREN          reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    THEN            reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    LOOP            reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    OF              reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    RBRACE          reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    ELSE            reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    POOL            reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+    FI              reduce using rule 49 (exp -> CASE exp OF elementlist ESAC .)
+
+
+state 127
+
+    (51) elementlist -> element SEMI .
+    (52) elementlist -> element SEMI . elementlist
+    (51) elementlist -> . element SEMI
+    (52) elementlist -> . element SEMI elementlist
+    (50) element -> . identifier COLON type RARROW exp
+    (7) identifier -> . IDENTIFIER
+
+    ESAC            reduce using rule 51 (elementlist -> element SEMI .)
+    IDENTIFIER      shift and go to state 15
+
+    element                        shift and go to state 115
+    elementlist                    shift and go to state 132
+    identifier                     shift and go to state 116
+
+state 128
+
+    (50) element -> identifier COLON . type RARROW exp
+    (6) type -> . TYPE
+
+    TYPE            shift and go to state 7
+
+    type                           shift and go to state 133
+
+state 129
+
+    (23) exp -> exp DOT identifier LPAREN explist_comma RPAREN .
+
+    DOT             reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    AT              reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    PLUS            reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    MINUS           reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    TIMES           reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    DIVIDE          reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    LT              reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    LE              reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    EQUALS          reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    SEMI            reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    COMMA           reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    IN              reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    RPAREN          reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    THEN            reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    LOOP            reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    OF              reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    RBRACE          reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    ELSE            reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    POOL            reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+    FI              reduce using rule 23 (exp -> exp DOT identifier LPAREN explist_comma RPAREN .)
+
+
+state 130
+
+    (25) exp -> exp AT type DOT identifier LPAREN . explist_comma RPAREN
+    (26) exp -> exp AT type DOT identifier LPAREN . RPAREN
+    (20) explist_comma -> . exp
+    (21) explist_comma -> . exp COMMA explist_comma
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    RPAREN          shift and go to state 135
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    exp                            shift and go to state 85
+    identifier                     shift and go to state 39
+    explist_comma                  shift and go to state 134
+
+state 131
+
+    (29) exp -> IF exp THEN exp ELSE exp . FI
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    FI              shift and go to state 136
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+
+state 132
+
+    (52) elementlist -> element SEMI elementlist .
+
+    ESAC            reduce using rule 52 (elementlist -> element SEMI elementlist .)
+
+
+state 133
+
+    (50) element -> identifier COLON type . RARROW exp
+
+    RARROW          shift and go to state 137
+
+
+state 134
+
+    (25) exp -> exp AT type DOT identifier LPAREN explist_comma . RPAREN
+
+    RPAREN          shift and go to state 138
+
+
+state 135
+
+    (26) exp -> exp AT type DOT identifier LPAREN RPAREN .
+
+    DOT             reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    AT              reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    PLUS            reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    MINUS           reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    TIMES           reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    DIVIDE          reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    LT              reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    LE              reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    EQUALS          reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    SEMI            reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    COMMA           reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    IN              reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    RPAREN          reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    THEN            reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    LOOP            reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    OF              reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    RBRACE          reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    ELSE            reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    POOL            reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+    FI              reduce using rule 26 (exp -> exp AT type DOT identifier LPAREN RPAREN .)
+
+
+state 136
+
+    (29) exp -> IF exp THEN exp ELSE exp FI .
+
+    DOT             reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    AT              reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    PLUS            reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    MINUS           reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    TIMES           reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    DIVIDE          reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    LT              reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    LE              reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    EQUALS          reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    SEMI            reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    COMMA           reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    IN              reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    RPAREN          reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    THEN            reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    LOOP            reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    OF              reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    RBRACE          reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    ELSE            reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    POOL            reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+    FI              reduce using rule 29 (exp -> IF exp THEN exp ELSE exp FI .)
+
+
+state 137
+
+    (50) element -> identifier COLON type RARROW . exp
+    (22) exp -> . identifier LARROW exp
+    (23) exp -> . exp DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> . exp DOT identifier LPAREN RPAREN
+    (25) exp -> . exp AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> . exp AT type DOT identifier LPAREN RPAREN
+    (27) exp -> . identifier LPAREN explist_comma RPAREN
+    (28) exp -> . identifier LPAREN RPAREN
+    (29) exp -> . IF exp THEN exp ELSE exp FI
+    (30) exp -> . WHILE exp LOOP exp POOL
+    (31) exp -> . LBRACE explist_semi RBRACE
+    (32) exp -> . NEW type
+    (33) exp -> . ISVOID exp
+    (34) exp -> . exp PLUS exp
+    (35) exp -> . exp MINUS exp
+    (36) exp -> . exp TIMES exp
+    (37) exp -> . exp DIVIDE exp
+    (38) exp -> . NOT exp
+    (39) exp -> . TILDE exp
+    (40) exp -> . LPAREN exp RPAREN
+    (41) exp -> . identifier
+    (42) exp -> . INTEGER
+    (43) exp -> . STRING
+    (44) exp -> . TRUE
+    (45) exp -> . FALSE
+    (46) exp -> . LET attribute attributelist IN exp
+    (49) exp -> . CASE exp OF elementlist ESAC
+    (53) exp -> . exp LT exp
+    (54) exp -> . exp LE exp
+    (55) exp -> . exp EQUALS exp
+    (7) identifier -> . IDENTIFIER
+
+    IF              shift and go to state 42
+    WHILE           shift and go to state 43
+    LBRACE          shift and go to state 44
+    NEW             shift and go to state 45
+    ISVOID          shift and go to state 46
+    NOT             shift and go to state 47
+    TILDE           shift and go to state 48
+    LPAREN          shift and go to state 41
+    INTEGER         shift and go to state 49
+    STRING          shift and go to state 50
+    TRUE            shift and go to state 51
+    FALSE           shift and go to state 52
+    LET             shift and go to state 53
+    CASE            shift and go to state 54
+    IDENTIFIER      shift and go to state 15
+
+    identifier                     shift and go to state 39
+    exp                            shift and go to state 139
+
+state 138
+
+    (25) exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .
+
+    DOT             reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    AT              reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    PLUS            reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    MINUS           reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    TIMES           reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    DIVIDE          reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    LT              reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    LE              reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    EQUALS          reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    SEMI            reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    COMMA           reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    IN              reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    RPAREN          reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    THEN            reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    LOOP            reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    OF              reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    RBRACE          reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    ELSE            reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    POOL            reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+    FI              reduce using rule 25 (exp -> exp AT type DOT identifier LPAREN explist_comma RPAREN .)
+
+
+state 139
+
+    (50) element -> identifier COLON type RARROW exp .
+    (23) exp -> exp . DOT identifier LPAREN explist_comma RPAREN
+    (24) exp -> exp . DOT identifier LPAREN RPAREN
+    (25) exp -> exp . AT type DOT identifier LPAREN explist_comma RPAREN
+    (26) exp -> exp . AT type DOT identifier LPAREN RPAREN
+    (34) exp -> exp . PLUS exp
+    (35) exp -> exp . MINUS exp
+    (36) exp -> exp . TIMES exp
+    (37) exp -> exp . DIVIDE exp
+    (53) exp -> exp . LT exp
+    (54) exp -> exp . LE exp
+    (55) exp -> exp . EQUALS exp
+
+    SEMI            reduce using rule 50 (element -> identifier COLON type RARROW exp .)
+    DOT             shift and go to state 59
+    AT              shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    DIVIDE          shift and go to state 64
+    LT              shift and go to state 65
+    LE              shift and go to state 66
+    EQUALS          shift and go to state 67
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for DOT in state 124 resolved as shift
+WARNING: shift/reduce conflict for AT in state 124 resolved as shift
+WARNING: shift/reduce conflict for PLUS in state 124 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 124 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 124 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 124 resolved as shift
+WARNING: shift/reduce conflict for LT in state 124 resolved as shift
+WARNING: shift/reduce conflict for LE in state 124 resolved as shift
+WARNING: shift/reduce conflict for EQUALS in state 124 resolved as shift
