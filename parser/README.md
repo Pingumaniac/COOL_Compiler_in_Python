@@ -21,8 +21,6 @@ a valid COOL program.
 parser's error-handling capabilities.
 
 ## About lexer_cl.py
-
-### Lexer (lexer_cl.py)
 The lexer breaks down a .cl file into tokens.
 These tokens represent the fundamental elements of the COOL language
 such as keywords (class, if, else, etc.), operators (+, -, *, /),
@@ -35,7 +33,7 @@ for the parser. Each token includes:
 3. Line Number: The line in the source code where the token appeared.
 
 
-### About output_ast.py
+## About output_ast.py
 The OutputAST class is responsible for printing the AST in a readable
 and structured format. This allows users to inspect the parsed structure
 of a COOL program. Notice that:
@@ -50,7 +48,7 @@ This ensures clarity and consistency in the AST output.
 StringIO, which enables efficient string manipulation.
 
 
-### About main.py
+## About main.py
 The CoolParser class contains the code for implementing a parser in
 Python for the COOL language.  The parser works in conjunction with a
 lexer and parses the tokenized input from a .cl-lex file, producing
