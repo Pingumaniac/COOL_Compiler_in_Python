@@ -1,4 +1,4 @@
-# Code Generator
+# x86 Code Generator from COOL
 
 ## Overview
 
@@ -83,10 +83,3 @@ abruptly.
 
 Each test case covers different aspects of the language and ensures that
 the compiler handles both typical and edge-case scenarios effectively.
-
-## Compilation and Execution
-
-1. **Assemble the Generated Code**:
-
-   ```bash
-   nasm -f elf64 test.s -o test.o
