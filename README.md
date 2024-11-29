@@ -1,5 +1,5 @@
 # COOL_Compiler_in_Python
-A full-fledged compiler for the COOL programming language has been implemented through developing a lexical analyzer, parser, semantic analyzer, code generator, and optimiser.
+A full-fledged compiler for the COOL programming language has been implemented through developing a lexical analyzer, parser, semantic analyzer, code generator, and cool-asm optimiser.
 
 ## Tools and Technologies
 
